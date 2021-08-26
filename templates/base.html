@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+        <title>
+            {% block title %}NFS MITM{% endblock %}
+        </title>
+
+        <style>
+            {% block style %}  {% endblock style %}
+        </style>
+
+        {% block head %}{% endblock %}
+    </head>
+    <body class="is-preload">
+
+      <div id="wrapper">
+          {%  block body %}
+          {% endblock %}
+      </div>
+
+    </body>
+</html>

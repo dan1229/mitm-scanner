@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block body %}
+    {% if refresh %}
+        {% block head %}
+                <meta http-equiv="refresh" content="10" />
+        {% endblock %}
+    {% endif %}
+
+        <h2>NFS MITM Client Program</h2>
+        <hr>
+        <h3><b>Run NFS MITM</b> (dir: <i>{{ nfs_mitm_dir }}</i>)</h3>
+        <form class="start_nfs" action="{% url 'home' %}" method="POST">
+            {% csrf_token %}
+            {{ forms.start_nfs.as_p }}
+            <button name='action' value='start_nfs' type="submit">Run</button>
+        </form>
+        <hr>
+        {#    <button class="refreshbutton" href="">Refresh</button>#}
+        <div style="width: 100%;" class="">
+            <table style="width: 900px;">
+                <tr class="reloadclass">
+                    <th><h3><b>NFS Server:</b></h3></th>
+                    <td><i>{{ server_ip }}</i></td>
+                    <th><h3><b>Last Updated:</b></h3></th>
+                    <td><i>{{ last_updated }}</i></td>
+                    <th><h3><b>Mount URL:</b></h3></th>
+                    <td><i>{{ mount_url }}</i></td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            <hr>
+                            <h3>Output</h3>
+                            <div style="border: black solid 1px; border-radius: 8px; padding: 8px; vertical-align: top;"
+                                 class="output-text">
+                                {% autoescape on %}
+                                    {{ output_text | linebreaksbr }}
+                                {% endautoescape %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                {#            {% if mount_url != "NONE" %}#}
+                <tr>
+                    <th><h3><b>View File</b></h3></th>
+                    <td>
+                        <form class='get_file' action="{% url 'home' %}" method="POST">
+                            {% csrf_token %}
+                            {{ forms.get_file.as_p }}
+                            <button name='action' value='get_file' type="submit">GET File</button>
+                        </form>
+                    </td>
+                    <th><h3><b>List Dir</b></h3></th>
+                    <td>
+                        <form class='list_dir' action="{% url 'home' %}" method="POST">
+                            {% csrf_token %}
+                            {{ forms.list_dir.as_p }}
+                            <button name='action' value='list_dir' type="submit">LIST Directory</button>
+                        </form>
+                    </td>
+                    <th><h3><b>Create File</b></h3></th>
+                    <td>
+                        <form class='create_file' action="{% url 'home' %}" method="POST">
+                            {% csrf_token %}
+                            {{ forms.create_file.as_p }}
+                            <button name='action' value='create_file' type="submit">CREATE file</button>
+                        </form>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><br></td>
+                </tr>
+
+                <tr>
+                    <th><h3><b>File Stats</b></h3></th>
+                    <td>
+                        <form class='file_stats' action="{% url 'home' %}" method="POST">
+                            {% csrf_token %}
+                            {{ forms.file_stats.as_p }}
+                            <button name='action' value='file_stats' type="submit">GET stats</button>
+                        </form>
+                    </td>
+                    <th><h3><b>Clear File</b></h3></th>
+                    <td>
+                        <form class='clear_file' action="{% url 'home' %}" method="POST">
+                            {% csrf_token %}
+                            {{ forms.clear_file.as_p }}
+                            <button name='action' value='clear_file' type="submit">CLEAR file</button>
+                        </form>
+                    </td>
+                    <th><h3><b>Delete File</b></h3></th>
+                    <td>
+                        <form class='delete_file' action="{% url 'home' %}" method="POST">
+                            {% csrf_token %}
+                            {{ forms.delete_file.as_p }}
+                            <button name='action' value='delete_file' type="submit">DELETE File</button>
+                        </form>
+                    </td>
+                </tr>
+                {#            {% endif %}#}
+            </table>
+        </div>
+        <br>
+{% endblock %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $('.refreshbutton').click(function () {
+        $.ajax(
+            {
+                type: "GET",
+                url: "",
+                success: function () {
+
+                }
+            })
+    });
+</script>
+
